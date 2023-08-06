@@ -1,0 +1,13 @@
+---
+# file: playbooks/reboot.yml
+
+- name: reboot
+  hosts: all
+  become: true
+  tags: reboot
+  tasks:
+    - name: reboot
+      block:
+        - name: reboot
+          ansible.builtin.reboot:
+            reboot_timeout: 3600

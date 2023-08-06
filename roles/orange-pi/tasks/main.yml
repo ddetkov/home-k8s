@@ -1,0 +1,14 @@
+---
+
+- name: install packages
+  block:
+    # - name: update
+    #   ansible.builtin.package:
+    #     update_cache: yes
+    #     upgrade: full
+    #     autoclean: true
+    #     autoremove: true
+
+    - name: install armbian-config
+      ansible.builtin.package:
+        name: "armbian-config"

@@ -1,0 +1,25 @@
+---
+# file: playbooks/debug.yml
+
+- name: debug
+  hosts: "{{ hosts_group|default('all') }}"
+
+  tasks:
+    - name: print timestamp
+      ansible.builtin.debug:
+        msg: "{{ lookup('pipe','date +%Y-%m-%dT%H:%M:%S') + ' UTC' }}"
+
+    - name: uname
+      ansible.builtin.raw: uname -a
+      register: uname
+
+    - name: lsb_release
+      ansible.builtin.raw: lsb_release -a
+      register: lsb_release
+
+    - name: print some vars
+      ansible.builtin.debug:
+        msg:
+          - "{{ uname.stdout }}"
+          - "{{ lsb_release.stdout_lines }}"
+          - "{{ ansible_distribution }}"

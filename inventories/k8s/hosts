@@ -1,0 +1,31 @@
+---
+
+all:
+  children:
+    k8s:
+      children:
+        controllers:
+          vars:
+            board_type: "orange-pi"
+        workers:
+          vars:
+            board_type: "nano-pi"
+            master_ip: 192.168.88.100
+    controllers:
+      hosts:
+        master-1:
+          ansible_host: 192.168.88.101
+        master-2:
+          ansible_host: 192.168.88.102
+        master-3:
+          ansible_host: 192.168.88.103
+    workers:
+      hosts:
+        node-1:
+          ansible_host: 192.168.88.111
+        node-2:
+          ansible_host: 192.168.88.112
+        node-3:
+          ansible_host: 192.168.88.113
+        node-4:
+          ansible_host: 192.168.88.114

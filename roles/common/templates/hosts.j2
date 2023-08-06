@@ -1,0 +1,11 @@
+# THIS FILE IS CONTROLLED BY ANSIBLE
+# any local modifications will be overwritten!
+#
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+127.0.0.1    {{ inventory_hostname.replace("_","-") }}    {{ inventory_hostname_short.replace("_","-") }}
+
+{% for host in groups['all'] %}
+{{ hostvars[host].ansible_facts.default_ipv4.address }} {{ host }}
+{% endfor %}

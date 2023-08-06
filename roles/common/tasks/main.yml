@@ -1,0 +1,9 @@
+---
+
+- name: hosts
+  block:
+    - name: build and replace hosts files
+      template:
+        src: "hosts.j2"
+        dest: "/etc/hosts"
+        force: yes

@@ -1,0 +1,45 @@
+---
+
+- name: mock arch
+  set_fact:
+    arch: "arm64"
+  when: ansible_architecture == "aarch64" or ansible_architecture == "arm64"
+
+# - name: mock packages
+#   block:
+#     - name: update
+#       ansible.builtin.package:
+#         update_cache: yes
+#         upgrade: full
+#         autoclean: true
+#         autoremove: true
+
+#     - name: install part 1 ...
+#       ansible.builtin.package:
+#         name: "{{ item }}"
+#       with_items:
+#         - apt-transport-https
+#         - ca-certificates
+#         - gpg
+
+#     - name: install part 2 ...
+#       ansible.builtin.package:
+#         name: "{{ item }}"
+#       with_items:
+#         - software-properties-common
+#         - aptitude
+
+#     - name: install part 3 ...
+#       ansible.builtin.package:
+#         name: "{{ item }}"
+#       with_items:
+#         - python3-pip
+#         - virtualenv
+#         - python3-setuptools
+
+# - name: opsbot conf
+#   block:
+#     - name: Add vmenezes to sudoers
+#       copy:
+#           dest: "/etc/sudoers.d/opsbot"
+#           content: "opsbot  ALL=(ALL)  NOPASSWD: ALL"

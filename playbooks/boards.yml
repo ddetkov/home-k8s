@@ -1,0 +1,41 @@
+---
+# file: playbooks/boards.yml
+
+- name: boards
+  hosts: "{{ hosts_group|default('k8s') }}"
+  become: true
+  tags: boards
+
+  pre_tasks:
+    - name: update packages
+      ansible.builtin.package:
+        update_cache: yes
+        upgrade: full
+        autoclean: true
+        autoremove: true
+        cache_valid_time: 86400 #One day
+      when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+    - name: init config for orange-pi
+      ansible.builtin.include_role:
+        name: orange-pi
+      when: board_type == "orange-pi"
+
+    - name: init config for nano-pi
+      ansible.builtin.include_role:
+        name: nano-pi
+      when: board_type == "nano-pi"
+
+    - name: reboot
+      become: true
+      ansible.builtin.reboot:
+        reboot_timeout: 3600
+
+  roles:
+    - "{{ role_name|default('common') }}"
+
+  tasks:
+    - name: reboot
+      become: true
+      ansible.builtin.reboot:
+        reboot_timeout: 3600

@@ -1,0 +1,10 @@
+---
+# file: playbooks/shutdown.yml
+
+- name: shutdown
+  hosts: all
+  become: true
+  tags: shutdown
+  tasks:
+    - name: Unconditionally shut down the machine with all defaults
+      community.general.shutdown:
