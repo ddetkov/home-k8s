@@ -1,7 +1,12 @@
 ---
 
-- name: hosts
+- name: naming
   block:
+
+    - name: change hostname
+      ansible.builtin.hostname:
+        name: "{{ inventory_hostname_short }}"
+
     - name: build and replace hosts files
       template:
         src: "hosts.j2"

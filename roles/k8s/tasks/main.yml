@@ -1,23 +1,14 @@
 ---
 
-- name: self-name
-  block:
-    - name: change hostname
-      ansible.builtin.hostname:
-        name: "{{ inventory_hostname_short }}"
-
-    # - name: hosts file
-    #   lineinfile:
-    #     path: /etc/hosts
-    #     state: present
-    #     line: "127.0.0.1    {{ inventory_hostname_short }}"
-
-
 - name: install k8s
   include_tasks: install.yml
-  # tags:
-  #   - install
-  #   - upgrade
+  tags:
+    - install
+
+- name: init k8s
+  include_tasks: init.yml
+  tags:
+    - init
 
 # - name: discover node status
 #   include_tasks: discover.yml

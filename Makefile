@@ -1,4 +1,4 @@
-all: ping debug boards 
+all: ping debug boards containerd k8s
 
 ping:
 	@(ansible all -m ping)
@@ -27,17 +27,8 @@ shutdown:
 # tests:
 # 	@(ansible-playbook playbooks/tests.yml)
 
-
-
-
-
-
-
 # docker:
 # 	@(ansible-playbook -i inventories/k8s playbooks/roles/docker.yml)
-
-# k8s:
-# 	@(ansible-playbook -i inventories/k8s playbooks/roles/k8s.yml)
 
 # requirements:
 # 	@(ansible-galaxy collection install -r requirements.yml)
