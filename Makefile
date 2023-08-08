@@ -1,4 +1,4 @@
-all: ping debug
+all: ping debug boards 
 
 ping:
 	@(ansible all -m ping)
@@ -6,28 +6,32 @@ ping:
 debug:
 	@(ansible-playbook playbooks/debug.yml)
 
-shutdown:
-	@(ansible-playbook playbooks/shutdown.yml)
+boards:
+	@(ansible-playbook playbooks/boards.yml)
+
+containerd:
+	@(ansible-playbook playbooks/containerd.yml)
+
+k8s:
+	@(ansible-playbook playbooks/k8s.yml)
+
+reset:
+	@(ansible-playbook playbooks/reset.yml)
 
 reboot:
 	@(ansible-playbook playbooks/reboot.yml)
 
-boards:
-	@(ansible-playbook playbooks/boards.yml)
-
-common:
-	@(ansible-playbook playbooks/common.yml)
+shutdown:
+	@(ansible-playbook playbooks/shutdown.yml)
 
 # tests:
 # 	@(ansible-playbook playbooks/tests.yml)
 
 
 
-# reset:
-# 	@(ansible-playbook playbooks/k8s/reset.yml)
 
-# containerd:
-# 	@(ansible-playbook -i inventories/k8s playbooks/roles/containerd.yml)
+
+
 
 # docker:
 # 	@(ansible-playbook -i inventories/k8s playbooks/roles/docker.yml)

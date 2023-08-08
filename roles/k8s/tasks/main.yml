@@ -1,0 +1,36 @@
+---
+
+- name: self-name
+  block:
+    - name: change hostname
+      ansible.builtin.hostname:
+        name: "{{ inventory_hostname_short }}"
+
+    # - name: hosts file
+    #   lineinfile:
+    #     path: /etc/hosts
+    #     state: present
+    #     line: "127.0.0.1    {{ inventory_hostname_short }}"
+
+
+- name: install k8s
+  include_tasks: install.yml
+  # tags:
+  #   - install
+  #   - upgrade
+
+# - name: discover node status
+#   include_tasks: discover.yml
+
+# - debug: var=node
+# - debug: var=cluster
+
+# - name: create the cluster
+#   include_tasks: init.yml
+#   when:
+#     - node == "master"
+#     - cluster != "initialized"
+#   tags:
+#     - init
+
+  

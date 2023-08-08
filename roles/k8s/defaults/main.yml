@@ -1,0 +1,12 @@
+---
+kube_version: "1.26.6-00"
+
+k8s_packages:
+- "kubeadm"
+- "kubectl"
+- "kubelet"
+
+package_versions:
+  kubeadm: "{{ kube_version }}"
+  kubectl: "{{ kube_version }}"
+  kubelet: "{{ kube_version }}"
