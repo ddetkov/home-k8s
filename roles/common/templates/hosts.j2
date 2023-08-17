@@ -9,3 +9,5 @@
 {% for host in groups['all'] %}
 {{ hostvars[host].ansible_facts.default_ipv4.address }} {{ host }}
 {% endfor %}
+
+192.168.88.100 lb.example.local

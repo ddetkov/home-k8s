@@ -68,6 +68,10 @@
             - "/var/run/docker.sock"
             - "/etc/systemd/system/docker.service"
             - "/etc/systemd/system/docker.socket"
+            - "/etc/sysctl.d/99-k8s.conf"
+            - "/etc/sysctl.d/99-kubernetes-cri.conf"
+            - "/usr/local/bin/runc"
+            - "/opt/cni"
 
     - name: iptables
       block:

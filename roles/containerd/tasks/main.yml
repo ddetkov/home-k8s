@@ -27,11 +27,11 @@
       ansible.builtin.shell: |
         containerd config default > "{{ containerd_cfg_dir }}/config.toml"
 
-    # - name: Enable systemd cgroups for containerd
-    #   ansible.builtin.lineinfile:
-    #     path: "{{ containerd_cfg_dir }}/config.toml"
-    #     regexp: '^            SystemdCgroup = false'
-    #     line: '            SystemdCgroup = true'
+    - name: Enable systemd cgroups for containerd
+      ansible.builtin.lineinfile:
+        path: "{{ containerd_cfg_dir }}/config.toml"
+        regexp: '^            SystemdCgroup = false'
+        line: '            SystemdCgroup = true'
 
     - name: add module load file for containerd
       ansible.builtin.copy:
@@ -45,36 +45,14 @@
         modprobe overlay
         modprobe br_netfilter
 
-    # # NOTE: Added net.ipv4.conf.all.rp_filter for Calico CNI
-    # - name: IP Table - File Update
-    #   ansible.builtin.copy:
-    #     dest: "/etc/sysctl.d/99-kubernetes-cri.conf"
-    #     content: |
-    #       net.bridge.bridge-nf-call-ip6tables = 1
-    #       net.bridge.bridge-nf-call-iptables  = 1
-    #       net.ipv4.ip_forward                 = 1
-    #       net.ipv4.conf.all.rp_filter         = 1
-    # - name: IP Table - System Enable
-    #   ansible.builtin.command: /sbin/sysctl --system
-
     - name: enable service
       ansible.builtin.service:
         name: containerd
         enabled: true
         state: started
 
-# - name: runc
-#   block:
-#     - name: 
-#       get_url:
-#         url: https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.arm64
-#         dest: /usr/local/bin/runc
-#         mode: 0700
+- name: runc
+  include_tasks: runc.yml
 
-# - name: cni-plugins
-#   block:
-#     - name: Unarchive cni-plugins
-#       unarchive:
-#         src: https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-arm-v1.3.0.tgz
-#         dest: /opt/cni/bin/
-#         remote_src: yes
+- name: cni
+  include_tasks: cni.yml
